@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: spring-jpa-many-to-many-lab
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+
