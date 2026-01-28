@@ -39,6 +39,11 @@ public class Student {
         course.getStudents().add(this);
     }
 
+    public void removeCourse(Course course){
+        this.courses.remove(course);
+        course.getStudents().remove(this);
+    }
+
     public void addCourses(Collection<Course> courses) {
         if (courses != null) {
             this.courses.addAll(courses);
@@ -47,6 +52,13 @@ public class Student {
             }
         }
     }
+
+    public void removeCourses(Collection<Course> courses) {
+        if (courses != null) {
+            courses.forEach(this::removeCourse);
+        }
+    }
+
 
     public void setCourses(Set<Course> courses){
        this.courses.removeIf(course -> {

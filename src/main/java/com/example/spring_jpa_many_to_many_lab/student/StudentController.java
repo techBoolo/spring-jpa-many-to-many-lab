@@ -38,6 +38,14 @@ public class StudentController {
         return studentService.updateStudent(id, studentUpdateDto);
     }
 
+    @PatchMapping("/{id}")
+    public StudentResponseDto partialStudentUpdate(
+            @PathVariable Long id,
+            @RequestBody
+            StudentUpdateDto studentUpdateDto) {
+        return studentService.partialStudentUpdate(id, studentUpdateDto);
+    }
+
 
 
 }

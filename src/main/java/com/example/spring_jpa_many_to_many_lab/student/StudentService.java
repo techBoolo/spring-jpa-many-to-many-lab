@@ -59,4 +59,21 @@ public class StudentService {
         return studentMapper.toDto(savedStudent);
     }
 
+    public StudentResponseDto partialStudentUpdate(Long id, StudentUpdateDto studentUpdateDto){
+        Student student = studentRepository.findById(id).orElseThrow();
+        studentMapper.updateEntityFromDto(studentUpdateDto, student);
+
+        if(studentUpdateDto.removeCourseIds() != null){
+            List<Course> courses = courseRepository.findAllById(studentUpdateDto.removeCourseIds());
+            student.removeCourses(courses);
+        }
+        if(studentUpdateDto.addCourseIds() != null){
+            List<Course> courses = courseRepository.findAllById(studentUpdateDto.addCourseIds());
+            student.addCourses(courses);
+        }
+
+        Student savedStudent = studentRepository.save(student);
+        return studentMapper.toDto(savedStudent);
+    }
+
 }

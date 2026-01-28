@@ -8,6 +8,12 @@ public record StudentUpdateDto(
         String name,
 
         @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
-        Set<Long> courseIds
+        Set<Long> courseIds,
+
+        @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+        Set<Long> addCourseIds,
+
+        @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+        Set<Long> removeCourseIds
 ) {
 }
