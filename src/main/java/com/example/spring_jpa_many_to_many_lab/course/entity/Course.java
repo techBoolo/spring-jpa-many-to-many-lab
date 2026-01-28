@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SoftDelete;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Setter
@@ -15,6 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@SoftDelete
 @Table(name = "courses")
 public class Course {
 
@@ -27,4 +29,10 @@ public class Course {
     @ManyToMany(mappedBy = "courses")
     @SoftDelete
     private Set<Student> students;
+
+    public void preRemove(){
+        new HashSet<>(this.students).forEach(student -> {
+            student.removeCourse(this);
+        });
+    }
 }

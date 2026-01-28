@@ -40,4 +40,11 @@ public class CourseService {
         return courseMapper.toDto(updatedCourse);
     }
 
+    public void deleteCourse(Long id){
+        Course course = courseRepository.findById(id).orElseThrow();
+
+        course.preRemove();
+        courseRepository.delete(course);
+    }
+
 }
