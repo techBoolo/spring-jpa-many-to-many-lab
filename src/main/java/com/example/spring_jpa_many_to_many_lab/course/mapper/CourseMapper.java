@@ -17,7 +17,7 @@ public interface CourseMapper {
 
     CourseResponseDto toDto(Course course);
 
-    List<CourseRequestDto> toDtoList(List<Course> courses);
+    List<CourseResponseDto> toDtoList(List<Course> courses);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateEntityFromDto(CourseUpdateDto courseUpdateDto, @MappingTarget Course course);
