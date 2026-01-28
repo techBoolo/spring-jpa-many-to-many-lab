@@ -21,4 +21,14 @@ public class CourseService {
         Course savedCourse = courseRepository.save(course);
         return courseMapper.toDto(savedCourse);
     }
+
+    public List<CourseResponseDto> getCourses(){
+        List<Course> courses = courseRepository.findAll();
+        return courseMapper.toDtoList(courses);
+    }
+
+    public CourseResponseDto getCourse(Long id){
+        Course course = courseRepository.findById(id).orElseThrow();
+        return courseMapper.toDto(course);
+    }
 }
