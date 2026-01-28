@@ -34,4 +34,14 @@ public class StudentService {
         return studentMapper.toDto(savedStudent);
     }
 
+    public List<StudentResponseDto> getStudents(){
+        List<Student> students = studentRepository.findAll();
+        return studentMapper.toDtoList(students);
+    }
+
+    public StudentResponseDto getStudent(Long id){
+        Student student = studentRepository.findById(id).orElseThrow();
+        return studentMapper.toDto(student);
+    }
+
 }

@@ -16,7 +16,7 @@ public interface StudentMapper {
 
     StudentResponseDto toDto(Student student);
 
-    List<StudentRequestDto> toDtoList(List<Student> students);
+    List<StudentResponseDto> toDtoList(List<Student> students);
 
     @Mapping(target = "id", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
