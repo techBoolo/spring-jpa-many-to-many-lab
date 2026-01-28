@@ -34,6 +34,11 @@ public class Student {
     // default set to empty Set, otherwise the code(this.courses.addAll(courses)) in the service
     // will throw an error of trying to add list in null value initially(i.e null value)
 
+    public void addCourse(Course course) {
+        this.courses.add(course);
+        course.getStudents().add(this);
+    }
+
     public void addCourses(Collection<Course> courses) {
         if (courses != null) {
             this.courses.addAll(courses);
@@ -42,5 +47,22 @@ public class Student {
             }
         }
     }
+
+    public void setCourses(Set<Course> courses){
+       this.courses.removeIf(course -> {
+           if(courses.contains(course)){
+               return false;
+           }
+           course.getStudents().remove(this);
+           return true;
+       });
+       courses.forEach(course -> {
+           if(!this.courses.contains(course)){
+               this.courses.add(course);
+               course.getStudents().add(this);
+           }
+       });
+    }
+
 
 }

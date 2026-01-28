@@ -4,12 +4,14 @@ import com.example.spring_jpa_many_to_many_lab.course.CourseRepository;
 import com.example.spring_jpa_many_to_many_lab.course.entity.Course;
 import com.example.spring_jpa_many_to_many_lab.student.dto.StudentRequestDto;
 import com.example.spring_jpa_many_to_many_lab.student.dto.StudentResponseDto;
+import com.example.spring_jpa_many_to_many_lab.student.dto.StudentUpdateDto;
 import com.example.spring_jpa_many_to_many_lab.student.entity.Student;
 import com.example.spring_jpa_many_to_many_lab.student.mapper.StudentMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -42,6 +44,19 @@ public class StudentService {
     public StudentResponseDto getStudent(Long id){
         Student student = studentRepository.findById(id).orElseThrow();
         return studentMapper.toDto(student);
+    }
+
+    public StudentResponseDto updateStudent(Long id, StudentUpdateDto studentUpdateDto){
+        Student student = studentRepository.findById(id).orElseThrow();
+        studentMapper.updateEntityFromDto(studentUpdateDto, student);
+
+        if(studentUpdateDto.courseIds() != null){
+            List<Course> courses = courseRepository.findAllById(studentUpdateDto.courseIds());
+            student.setCourses(new HashSet<>(courses));
+        }
+
+        Student savedStudent = studentRepository.save(student);
+        return studentMapper.toDto(savedStudent);
     }
 
 }
