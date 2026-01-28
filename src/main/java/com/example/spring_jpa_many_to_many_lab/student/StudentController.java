@@ -46,4 +46,9 @@ public class StudentController {
         return studentService.partialStudentUpdate(id, studentUpdateDto);
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteStudent(@PathVariable Long id){
+        studentService.deleteStudent(id);
+    }
+
 }

@@ -59,6 +59,7 @@ public class StudentService {
         return studentMapper.toDto(savedStudent);
     }
 
+    @Transactional
     public StudentResponseDto partialStudentUpdate(Long id, StudentUpdateDto studentUpdateDto){
         Student student = studentRepository.findById(id).orElseThrow();
         studentMapper.updateEntityFromDto(studentUpdateDto, student);
@@ -76,4 +77,9 @@ public class StudentService {
         return studentMapper.toDto(savedStudent);
     }
 
+    @Transactional
+    public void deleteStudent(Long id){
+        Student student = studentRepository.findById(id).orElseThrow();
+        studentRepository.delete(student);
+    }
 }
