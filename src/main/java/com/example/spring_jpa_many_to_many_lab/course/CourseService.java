@@ -2,6 +2,7 @@ package com.example.spring_jpa_many_to_many_lab.course;
 
 import com.example.spring_jpa_many_to_many_lab.course.dto.CourseRequestDto;
 import com.example.spring_jpa_many_to_many_lab.course.dto.CourseResponseDto;
+import com.example.spring_jpa_many_to_many_lab.course.dto.CourseUpdateDto;
 import com.example.spring_jpa_many_to_many_lab.course.entity.Course;
 import com.example.spring_jpa_many_to_many_lab.course.mapper.CourseMapper;
 import lombok.RequiredArgsConstructor;
@@ -31,4 +32,12 @@ public class CourseService {
         Course course = courseRepository.findById(id).orElseThrow();
         return courseMapper.toDto(course);
     }
+
+    public CourseResponseDto updateCourse(Long id, CourseUpdateDto courseUpdateDto){
+        Course course = courseRepository.findById(id).orElseThrow();
+        courseMapper.updateEntityFromDto(courseUpdateDto, course);
+        Course updatedCourse = courseRepository.save(course);
+        return courseMapper.toDto(updatedCourse);
+    }
+
 }
